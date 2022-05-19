@@ -13,7 +13,7 @@ var faunadb = require("faunadb"),
 
 
 
-app.get('/embed/:id', async(req, res) => {
+app.get('/:id', async(req, res) => {
 
     res.setHeader('Access-Control-Allow-Origin', '*');
 
