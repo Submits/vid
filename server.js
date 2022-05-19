@@ -40,20 +40,35 @@ const data = await response.headers
   <meta name="twitter:card" content="player">
 <meta name="twitter:player" content="` + ret.data.video + `">
 <meta property="og:title" content="` + ret.data.title + `">
-<meta property="og:site_name" content="` + "[" + data.get('content-disposition').split("filename=")[1] + "] " + (( Math.round(((data.get('content-length') / 1024) / 1024) * 100)) / 100 + " MB") + `">
+<meta property="og:site_name" content="` + data.get('content-disposition').split("filename=")[1] + " [" + (( Math.round(((data.get('content-length') / 1024) / 1024) * 100)) / 100 + " MB]") + `">
 <meta property="theme-color" content="` + "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);}) + `">
 </head>
 <style>
-body{
-  font-family: sans-serif;
-  text-align: center;
+
+*{
+    font-family: sans-serif;
+    color: white;
 }
 
+body{
+    background-color: #252525;
+    text-align: center;
+    margin: auto;
+    width: 50%;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
 
+video{
+    border-radius: 5px;
+}
 
 </style>
 <body>
-<p>absq video hosting</p>
+          <h2>` + data.get('content-disposition').split("filename=")[1] + " [" + (( Math.round(((data.get('content-length') / 1024) / 1024) * 100)) / 100 + " MB]") + `</h2>
+        <video width="50%" controls>
+            <source src="https://cdn.discordapp.com/attachments/971018418931236887/976933891371839558/video2.mp4" type="video/mp4">
+          </video>
 </body>`
 
 
