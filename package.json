@@ -1,0 +1,17 @@
+{
+    "name": "vids",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+      "test": "node server.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "body-parser": "^1.19.1",
+    "express": "^4.17.2",
+    "faunadb": "^4.4.1"
+    }
+  }
