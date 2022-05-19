@@ -67,7 +67,7 @@ video{
 <body>
           <h2>` + data.get('content-disposition').split("filename=")[1] + " [" + (( Math.round(((data.get('content-length') / 1024) / 1024) * 100)) / 100 + " MB]") + `</h2>
         <video width="50%" controls>
-            <source src="https://cdn.discordapp.com/attachments/971018418931236887/976933891371839558/video2.mp4" type="video/mp4">
+            <source src="` + ret.data.video + `">
           </video>
 </body>`
 
