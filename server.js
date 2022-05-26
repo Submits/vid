@@ -33,12 +33,25 @@ console.log(idd)
 )
 .then(async function(ret){ 
 
-var response = await fetch(ret.data.video)
+var response = await fetch(ret.data.media)
 const data = await response.headers
+
+let media = ""
+if(ret.data.type == "image"){
+  
+ media = `<meta name="twitter:card" content="summary_large_image">
+ <meta property="og:image" content="` + ret.data.media + `">
+ ` 
+}
+else if(ret.data.type == "video"){
+  
+  media = `<meta name="twitter:card" content="player">
+<meta name="twitter:player" content="` + ret.data.video + `">`
+  
+}
         const html = `<!DOCTYPE html>
   <head>
-  <meta name="twitter:card" content="player">
-<meta name="twitter:player" content="` + ret.data.video + `">
+ ` + media + `
 <meta property="og:title" content="` + ret.data.title + `">
 <meta property="og:site_name" content="` + data.get('content-disposition').split("filename=")[1] + " [" + (( Math.round(((data.get('content-length') / 1024) / 1024) * 100)) / 100 + " MB]") + `">
 <meta property="theme-color" content="` + "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);}) + `">
