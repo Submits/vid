@@ -35,34 +35,44 @@ console.log(idd)
 
 var response = await fetch(ret.data.media)
 const data = await response.headers
-
 let media = ""
+  let filename = ""
+  let content = ""
 if(ret.data.type == "image"){
   
  media = `<meta name="twitter:card" content="summary_large_image">
  <meta property="og:image" content="` + ret.data.media + `">
  ` 
+  content = `<img style="width:50%; border-radius:5px" src="` + ret.data.media + `">`
 }
 else if(ret.data.type == "video"){
   
   media = `<meta name="twitter:card" content="player">
-<meta name="twitter:player" content="` + ret.data.video + `">`
-  
+<meta name="twitter:player" content="` + ret.data.media + `">`
+content = ` <video width="50%" controls>
+            <source src="` + ret.data.media + `">
+          </video>`  
 }
+
+  try{
+    filename = data.get('content-disposition').split("filename=")[1]
+  }
+  catch{
+    filename = "unknown"
+  }
+  
         const html = `<!DOCTYPE html>
   <head>
  ` + media + `
 <meta property="og:title" content="` + ret.data.title + `">
-<meta property="og:site_name" content="` + data.get('content-disposition').split("filename=")[1] + " [" + (( Math.round(((data.get('content-length') / 1024) / 1024) * 100)) / 100 + " MB]") + `">
+<meta property="og:site_name" content="` + filename + " [" + (( Math.round(((data.get('content-length') / 1024) / 1024) * 100)) / 100 + " MB]") + `">
 <meta property="theme-color" content="` + "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);}) + `">
 </head>
 <style>
-
 *{
     font-family: sans-serif;
     color: white;
 }
-
 body{
     background-color: #252525;
     text-align: center;
@@ -71,17 +81,13 @@ body{
     padding-top: 100px;
     padding-bottom: 100px;
 }
-
 video{
     border-radius: 5px;
 }
-
 </style>
 <body>
-          <h2>` + data.get('content-disposition').split("filename=")[1] + " [" + (( Math.round(((data.get('content-length') / 1024) / 1024) * 100)) / 100 + " MB]") + `</h2>
-        <video width="50%" controls>
-            <source src="` + ret.data.video + `">
-          </video>
+          <h2>` + filename + " [" + (( Math.round(((data.get('content-length') / 1024) / 1024) * 100)) / 100 + " MB]") + `</h2>
+        ` + content + `
 </body>`
 
 
@@ -90,7 +96,7 @@ res.send(html)
  
 })
  .catch(function(err){
-
+console.log(err)
 res.send("The resource you have requested is not available. - " + err.toString())
    
  })
