@@ -11,7 +11,11 @@ var faunadb = require("faunadb"),
   })
 
 
+ app.get('/admin/control', function(req, res) {
 
+    res.sendFile('control.html', {root: __dirname })
+        
+});
 
 app.get('/:id', async(req, res) => {
 
