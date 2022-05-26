@@ -92,6 +92,7 @@ res.send(html)
  .catch(function(err){
 
 res.send("The resource you have requested is not available.")
+   console.log(err)
    
  })
 
